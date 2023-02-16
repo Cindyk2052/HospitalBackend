@@ -1,0 +1,6 @@
+D:\Usuarios\CY\Hospital\Comun\bin\Debug\Comun.dll
+D:\Usuarios\CY\Hospital\Comun\bin\Debug\Comun.pdb
+D:\Usuarios\CY\Hospital\Comun\obj\Debug\Comun.csproj.AssemblyReference.cache
+D:\Usuarios\CY\Hospital\Comun\obj\Debug\Comun.csproj.CoreCompileInputs.cache
+D:\Usuarios\CY\Hospital\Comun\obj\Debug\Comun.dll
+D:\Usuarios\CY\Hospital\Comun\obj\Debug\Comun.pdb

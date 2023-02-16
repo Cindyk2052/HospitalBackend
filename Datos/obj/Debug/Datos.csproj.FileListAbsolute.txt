@@ -1,0 +1,17 @@
+D:\Usuarios\CY\Hospital\Datos\bin\Debug\Datos.dll.config
+D:\Usuarios\CY\Hospital\Datos\bin\Debug\Datos.dll
+D:\Usuarios\CY\Hospital\Datos\bin\Debug\Datos.pdb
+D:\Usuarios\CY\Hospital\Datos\bin\Debug\Comun.dll
+D:\Usuarios\CY\Hospital\Datos\bin\Debug\EntityFramework.dll
+D:\Usuarios\CY\Hospital\Datos\bin\Debug\EntityFramework.SqlServer.dll
+D:\Usuarios\CY\Hospital\Datos\bin\Debug\Modelo.dll
+D:\Usuarios\CY\Hospital\Datos\bin\Debug\Comun.pdb
+D:\Usuarios\CY\Hospital\Datos\bin\Debug\Modelo.pdb
+D:\Usuarios\CY\Hospital\Datos\bin\Debug\Modelo.dll.config
+D:\Usuarios\CY\Hospital\Datos\bin\Debug\EntityFramework.xml
+D:\Usuarios\CY\Hospital\Datos\bin\Debug\EntityFramework.SqlServer.xml
+D:\Usuarios\CY\Hospital\Datos\obj\Debug\Datos.csproj.AssemblyReference.cache
+D:\Usuarios\CY\Hospital\Datos\obj\Debug\Datos.csproj.CoreCompileInputs.cache
+D:\Usuarios\CY\Hospital\Datos\obj\Debug\Datos.csproj.CopyComplete
+D:\Usuarios\CY\Hospital\Datos\obj\Debug\Datos.dll
+D:\Usuarios\CY\Hospital\Datos\obj\Debug\Datos.pdb

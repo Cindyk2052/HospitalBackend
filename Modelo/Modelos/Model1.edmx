@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Egreso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="tratamiento" Type="varchar(max)" />
+          <Property Name="monto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="borrado" Type="bit" Nullable="false" />
+          <Property Name="medicoId" Type="bigint" Nullable="false" />
+          <Property Name="ingresoId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ingreso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="numeroSala" Type="int" Nullable="false" />
+          <Property Name="numeroCama" Type="int" Nullable="false" />
+          <Property Name="diagnostico" Type="varchar(max)" Nullable="false" />
+          <Property Name="observacion" Type="varchar(max)" />
+          <Property Name="borrado" Type="bit" Nullable="false" />
+          <Property Name="medicoId" Type="bigint" Nullable="false" />
+          <Property Name="pacienteId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medico">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidoPaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidoMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="esEspecialista" Type="bit" Nullable="false" />
+          <Property Name="habilitado" Type="bit" Nullable="false" />
+          <Property Name="borrado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Paciente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidoPaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidoMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="direccion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="celular" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="correoElectronico" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="borrado" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Egreso_Ingreso">
+          <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="1" />
+          <End Role="Egreso" Type="Self.Egreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingreso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Egreso">
+              <PropertyRef Name="ingresoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Egreso_Medico">
+          <End Role="Medico" Type="Self.Medico" Multiplicity="1" />
+          <End Role="Egreso" Type="Self.Egreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medico">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Egreso">
+              <PropertyRef Name="medicoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingreso_Medico">
+          <End Role="Medico" Type="Self.Medico" Multiplicity="1" />
+          <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medico">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ingreso">
+              <PropertyRef Name="medicoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingreso_Paciente">
+          <End Role="Paciente" Type="Self.Paciente" Multiplicity="1" />
+          <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paciente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ingreso">
+              <PropertyRef Name="pacienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Egreso" EntityType="Self.Egreso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ingreso" EntityType="Self.Ingreso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medico" EntityType="Self.Medico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paciente" EntityType="Self.Paciente" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Egreso_Ingreso" Association="Self.FK_Egreso_Ingreso">
+            <End Role="Ingreso" EntitySet="Ingreso" />
+            <End Role="Egreso" EntitySet="Egreso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Egreso_Medico" Association="Self.FK_Egreso_Medico">
+            <End Role="Medico" EntitySet="Medico" />
+            <End Role="Egreso" EntitySet="Egreso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingreso_Medico" Association="Self.FK_Ingreso_Medico">
+            <End Role="Medico" EntitySet="Medico" />
+            <End Role="Ingreso" EntitySet="Ingreso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingreso_Paciente" Association="Self.FK_Ingreso_Paciente">
+            <End Role="Paciente" EntitySet="Paciente" />
+            <End Role="Ingreso" EntitySet="Ingreso" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Egreso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="tratamiento" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="monto" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="borrado" Type="Boolean" Nullable="false" />
+          <Property Name="medicoId" Type="Int64" Nullable="false" />
+          <Property Name="ingresoId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Ingreso" Relationship="Self.FK_Egreso_Ingreso" FromRole="Egreso" ToRole="Ingreso" />
+          <NavigationProperty Name="Medico" Relationship="Self.FK_Egreso_Medico" FromRole="Egreso" ToRole="Medico" />
+        </EntityType>
+        <EntityType Name="Ingreso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="numeroSala" Type="Int32" Nullable="false" />
+          <Property Name="numeroCama" Type="Int32" Nullable="false" />
+          <Property Name="diagnostico" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="borrado" Type="Boolean" Nullable="false" />
+          <Property Name="medicoId" Type="Int64" Nullable="false" />
+          <Property Name="pacienteId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Egreso" Relationship="Self.FK_Egreso_Ingreso" FromRole="Ingreso" ToRole="Egreso" />
+          <NavigationProperty Name="Medico" Relationship="Self.FK_Ingreso_Medico" FromRole="Ingreso" ToRole="Medico" />
+          <NavigationProperty Name="Paciente" Relationship="Self.FK_Ingreso_Paciente" FromRole="Ingreso" ToRole="Paciente" />
+        </EntityType>
+        <EntityType Name="Medico">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="esEspecialista" Type="Boolean" Nullable="false" />
+          <Property Name="habilitado" Type="Boolean" Nullable="false" />
+          <Property Name="borrado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Egreso" Relationship="Self.FK_Egreso_Medico" FromRole="Medico" ToRole="Egreso" />
+          <NavigationProperty Name="Ingreso" Relationship="Self.FK_Ingreso_Medico" FromRole="Medico" ToRole="Ingreso" />
+        </EntityType>
+        <EntityType Name="Paciente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celular" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correoElectronico" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="borrado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Ingreso" Relationship="Self.FK_Ingreso_Paciente" FromRole="Paciente" ToRole="Ingreso" />
+        </EntityType>
+        <Association Name="FK_Egreso_Ingreso">
+          <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="1" />
+          <End Role="Egreso" Type="Self.Egreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingreso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Egreso">
+              <PropertyRef Name="ingresoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Egreso_Medico">
+          <End Role="Medico" Type="Self.Medico" Multiplicity="1" />
+          <End Role="Egreso" Type="Self.Egreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medico">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Egreso">
+              <PropertyRef Name="medicoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingreso_Medico">
+          <End Role="Medico" Type="Self.Medico" Multiplicity="1" />
+          <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medico">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ingreso">
+              <PropertyRef Name="medicoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingreso_Paciente">
+          <End Role="Paciente" Type="Self.Paciente" Multiplicity="1" />
+          <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paciente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ingreso">
+              <PropertyRef Name="pacienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbConexion" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Egreso" EntityType="Self.Egreso" />
+          <EntitySet Name="Ingreso" EntityType="Self.Ingreso" />
+          <EntitySet Name="Medico" EntityType="Self.Medico" />
+          <EntitySet Name="Paciente" EntityType="Self.Paciente" />
+          <AssociationSet Name="FK_Egreso_Ingreso" Association="Self.FK_Egreso_Ingreso">
+            <End Role="Ingreso" EntitySet="Ingreso" />
+            <End Role="Egreso" EntitySet="Egreso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Egreso_Medico" Association="Self.FK_Egreso_Medico">
+            <End Role="Medico" EntitySet="Medico" />
+            <End Role="Egreso" EntitySet="Egreso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingreso_Medico" Association="Self.FK_Ingreso_Medico">
+            <End Role="Medico" EntitySet="Medico" />
+            <End Role="Ingreso" EntitySet="Ingreso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingreso_Paciente" Association="Self.FK_Ingreso_Paciente">
+            <End Role="Paciente" EntitySet="Paciente" />
+            <End Role="Ingreso" EntitySet="Ingreso" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="DbConexion">
+          <EntitySetMapping Name="Egreso">
+            <EntityTypeMapping TypeName="Model.Egreso">
+              <MappingFragment StoreEntitySet="Egreso">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="tratamiento" ColumnName="tratamiento" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="borrado" ColumnName="borrado" />
+                <ScalarProperty Name="medicoId" ColumnName="medicoId" />
+                <ScalarProperty Name="ingresoId" ColumnName="ingresoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingreso">
+            <EntityTypeMapping TypeName="Model.Ingreso">
+              <MappingFragment StoreEntitySet="Ingreso">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="numeroSala" ColumnName="numeroSala" />
+                <ScalarProperty Name="numeroCama" ColumnName="numeroCama" />
+                <ScalarProperty Name="diagnostico" ColumnName="diagnostico" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="borrado" ColumnName="borrado" />
+                <ScalarProperty Name="medicoId" ColumnName="medicoId" />
+                <ScalarProperty Name="pacienteId" ColumnName="pacienteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medico">
+            <EntityTypeMapping TypeName="Model.Medico">
+              <MappingFragment StoreEntitySet="Medico">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidoPaterno" ColumnName="apellidoPaterno" />
+                <ScalarProperty Name="apellidoMaterno" ColumnName="apellidoMaterno" />
+                <ScalarProperty Name="esEspecialista" ColumnName="esEspecialista" />
+                <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+                <ScalarProperty Name="borrado" ColumnName="borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paciente">
+            <EntityTypeMapping TypeName="Model.Paciente">
+              <MappingFragment StoreEntitySet="Paciente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidoPaterno" ColumnName="apellidoPaterno" />
+                <ScalarProperty Name="apellidoMaterno" ColumnName="apellidoMaterno" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="celular" ColumnName="celular" />
+                <ScalarProperty Name="correoElectronico" ColumnName="correoElectronico" />
+                <ScalarProperty Name="borrado" ColumnName="borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

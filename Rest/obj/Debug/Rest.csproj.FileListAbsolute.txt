@@ -1,0 +1,14 @@
+D:\Usuarios\CY\Hospital\Rest\bin\Debug\Rest.dll
+D:\Usuarios\CY\Hospital\Rest\bin\Debug\Rest.pdb
+D:\Usuarios\CY\Hospital\Rest\bin\Debug\Comun.dll
+D:\Usuarios\CY\Hospital\Rest\bin\Debug\Modelo.dll
+D:\Usuarios\CY\Hospital\Rest\bin\Debug\EntityFramework.dll
+D:\Usuarios\CY\Hospital\Rest\bin\Debug\Comun.pdb
+D:\Usuarios\CY\Hospital\Rest\bin\Debug\Modelo.pdb
+D:\Usuarios\CY\Hospital\Rest\bin\Debug\Modelo.dll.config
+D:\Usuarios\CY\Hospital\Rest\bin\Debug\EntityFramework.xml
+D:\Usuarios\CY\Hospital\Rest\obj\Debug\Rest.csproj.AssemblyReference.cache
+D:\Usuarios\CY\Hospital\Rest\obj\Debug\Rest.csproj.CoreCompileInputs.cache
+D:\Usuarios\CY\Hospital\Rest\obj\Debug\Rest.csproj.CopyComplete
+D:\Usuarios\CY\Hospital\Rest\obj\Debug\Rest.dll
+D:\Usuarios\CY\Hospital\Rest\obj\Debug\Rest.pdb
